@@ -9,24 +9,14 @@ import { User } from '../_models/user';
 })
 export class HomeComponent implements OnInit {
   registerMode = false;
-  users: Array<User> | null = null;
-
-  constructor(private http: HttpClient) { }
+  
+  constructor() { }
 
   ngOnInit(): void {
-    this.getUsers();
   }
 
   registerToggle() {
     this.registerMode = !this.registerMode;
-  }
-
-  getUsers() {
-    this.http.get<Array<User>>("https://localhost:7111/api/users").subscribe({
-      next: response => this.users = response,
-      error: err => console.log(err),
-      complete: () => console.log("The request is complete!")
-    });
   }
 
   cancelRegisterationMode(event: boolean) {
