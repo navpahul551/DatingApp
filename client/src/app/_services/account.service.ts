@@ -44,7 +44,7 @@ export class AccountService {
   }
 
   register(model: any) {
-    return this.http.post<User>("https://localhost:7111/api/account/register", model).pipe(
+    return this.http.post<User>(this.baseUrl + "api/account/register", model).pipe(
       map(user => {
         if(user) {
           this.setCurrentUser(user);

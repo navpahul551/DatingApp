@@ -38,6 +38,8 @@ namespace API.Controllers
 
             user.UserName = registerDto.Username.ToLower();
 
+            if(user.Photos != null) foreach(var photo in user.Photos) photo.IsMain = false;
+
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
             if (!result.Succeeded) return BadRequest(result.Errors);

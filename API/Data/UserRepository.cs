@@ -19,12 +19,20 @@ namespace API.Data
             _mapper = mapper;
         }
 
-        public async Task<MemberDto> GetMemberAsync(string username)
+        public async Task<MemberDto> GetMemberAsync(string username, bool includeUnApprovedPhotos)
         {
-            return await _context.Users
+            var query = _context.Users
                 .Where(x => x.UserName == username)
-                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync();
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider);
+
+            if(includeUnApprovedPhotos)
+            {
+                return await query.IgnoreQueryFilters().SingleOrDefaultAsync();
+            }
+            else
+            {
+                return await query.SingleOrDefaultAsync();
+            }
         }
 
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)

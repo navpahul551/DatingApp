@@ -5,3 +5,11 @@
 input[type=file] {
     color: transparent;
 }
+
+.awaiting-approval-text {
+    position: absolute;
+    bottom: 7%;
+    text-align: center;
+    color: #f60000;
+    font-weight: 900;
+}
